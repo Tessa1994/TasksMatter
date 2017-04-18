@@ -13,7 +13,7 @@ public class Task {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String taskName;
-	private String taskNote;
+	private String taskNotes;
 	private String taskTags;
 	private String taskDate;
 	private int status;
@@ -38,12 +38,12 @@ public class Task {
 		this.taskName = taskName;
 	}
 
-	public String getTaskNote() {
-		return taskNote;
+	public String getTaskNotes() {
+		return taskNotes;
 	}
 
-	public void setTaskNote(String taskNote) {
-		this.taskNote = taskNote;
+	public void setTaskNotes(String taskNotes) {
+		this.taskNotes = taskNotes;
 	}
 
 	public String getTaskTags() {
