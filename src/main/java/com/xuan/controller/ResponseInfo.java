@@ -14,4 +14,5 @@ public class ResponseInfo {
 		this.code=code;
 		this.message=message;
 	}
+
 }
