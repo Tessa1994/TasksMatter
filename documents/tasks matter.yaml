@@ -1,0 +1,222 @@
+swagger: '2.0'
+info:
+  description: |
+    This is a sample server Petstore server.  You can find 
+    out more about Swagger at 
+    [http://swagger.io](http://swagger.io) or on 
+    [irc.freenode.net, #swagger](http://swagger.io/irc/).
+  version: 1.0.0
+  title: Tasks Matter
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+# host: petstore.swagger.io
+# basePath: /v2
+# schemes:
+# - http
+paths:
+  /tasks:
+    post:
+      tags:
+      - tasks
+      summary: Add a new task to the list
+      operationId: addTask
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Task object that needs to be added to the list
+        required: true
+        schema:
+          $ref: '#/definitions/Task'
+      responses:
+        200:
+          description: Create successful 
+        400:
+          description: Invalid input
+       
+
+    put:
+      tags:
+      - tasks
+      summary: Update an existing task
+      operationId: updateTask
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Task object that needs to be updated to the list
+        required: true
+        schema:
+          $ref: '#/definitions/Task'
+      responses:
+        200:
+          description: Update successful 
+        400:
+          description: Invalid input
+
+    get:
+      tags:
+      - tasks 
+      summary: Finds Tasks by any key words
+      description: Multiple values can be provided with comma separated strings
+      operationId: findTasks
+      produces:
+      - application/json
+      parameters:
+      - name: keyword
+        in: body
+        description: keyword that need to be considered for filter
+        required: true
+        schema:
+          $ref: '#/definitions/Task'
+      responses:
+        400:
+          description: Invalid status value
+        500:
+          description: Internal Server Error
+          
+  /tasks/{id}:
+    delete:
+      tags:
+      - tasks 
+      summary: Delete Tasks
+      operationId: deleteTasks
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: Task id to delete
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: Delete Successful
+        400:
+          description: Invalid ID supplied
+
+
+  /signup:
+    post:
+      tags:
+      - user
+      summary: A new user sign up
+      operationId: addUser
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: A new user sign up into the application
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        default:
+          description: Sign Up successful
+  /login:
+    get:
+      tags:
+      - user
+      summary: Logs user into the system
+      operationId: loginUser
+      produces:
+      - application/json
+      parameters:
+      - name: username
+        in: query
+        description: The user name for login
+        required: true
+        type: string
+      - name: password
+        in: query
+        description: The password for login in clear text
+        required: true
+        type: string
+      responses:
+        200:
+          description: Login successful
+          schema:
+            type: string
+          headers:
+            X-Rate-Limit:
+              type: integer
+              format: int32
+              description: calls per hour allowed by the user
+            X-Expires-After:
+              type: string
+              format: date-time
+              description: date in UTC when token expires
+        400:
+          description: Invalid username/password supplied
+        401:
+          description: Email does not exist
+  /user:
+    put:
+      tags:
+      - user
+      summary: user needs to update password
+      operationId: changePassword
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: User object that needs to be updated
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        200:
+          description: Change password successful
+        400:
+          description: Invalid ID supplied
+      
+  
+definitions:
+  Task:
+    properties:
+      id:
+        type: integer
+        format: int64
+      taskName:
+        type: string
+      taskNotes:
+        type: string
+      taskTags:
+        type: string
+      taskDate:
+        type: string
+      status:
+        type: integer
+        format: int64
+        description: "0:to do 1: in progress 2: done"
+  User:
+    properties:
+      id:
+        type: integer
+        format: int64
+      username:
+        type: string
+      password:
+        type: string
+      email:
+        type: string
+
+      
+ 

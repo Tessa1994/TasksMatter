@@ -35,7 +35,7 @@ public class TaskController {
 		return taskRepository.findOne(task.getId());
 	}
 	
-	@DeleteMapping(path = "/tasks")
+	@DeleteMapping(path = "/tasks/{id}")
 	public @ResponseBody ResponseInfo deleteTask(@RequestBody Task task){
 		taskRepository.delete(task);
 		return new ResponseInfo(200, "delete success");

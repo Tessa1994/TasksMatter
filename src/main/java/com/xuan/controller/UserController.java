@@ -46,18 +46,23 @@ public class UserController {
 			if (StringUtils.equals(password, userList.get(0).getPassword())) {
 				return new ResponseInfo(200, "success", userList.get(0));
 			} else {
-				return new ResponseInfo(400, "wrong password");
+				return new ResponseInfo(400, "Invalid username/password supplied");
 			}
 
 		} else {
-			return new ResponseInfo(400, "please sign up");
+			return new ResponseInfo(400, "email dose not exist");
 		}
 	}
 
 	@PutMapping(path = "/password")
 	public @ResponseBody ResponseInfo password(@RequestBody User user) {
-		String newPassword = user.getPassword();
+
 		emailSender.sendEmail("dreamlock0630@gmail.com", "test", "1111");
-		return new ResponseInfo(200, "asd");
+		String email = user.getEmail();
+		String newPassword = user.getPassword();	
+		user.setPassword(newPassword);
+		List<User> userList = userRepository.findByEmail(email);
+		return new ResponseInfo(200, "change password success", userList.get(0));
+		
 	}
 }
