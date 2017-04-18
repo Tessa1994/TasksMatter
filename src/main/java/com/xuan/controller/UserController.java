@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +22,9 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private EmailSender emailSender;
 
 	@PostMapping(path = "/signup")
 	public @ResponseBody ResponseInfo signup(@RequestBody User user) {
@@ -56,8 +57,6 @@ public class UserController {
 	@PutMapping(path = "/password")
 	public @ResponseBody ResponseInfo password(@RequestBody User user) {
 		String newPassword = user.getPassword();
-		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
-		EmailSender emailSender = (EmailSender) context.getBean("emailSender");
 		emailSender.sendEmail("dreamlock0630@gmail.com", "test", "1111");
 		return new ResponseInfo(200, "asd");
 	}
