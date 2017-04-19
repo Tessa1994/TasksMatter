@@ -11,4 +11,4 @@ Stack:
 .........
 ## API Specs
 ### Swagger specification document
-API specification is generated using Swagger Editor and located under [documents/tasks matter.yaml](documents/tasks matter.yaml).
+API specification is generated using Swagger Editor and located under [documents/tasks_matter.yaml](documents/tasks_matter.yaml).
