@@ -2,7 +2,9 @@ package com.xuan.cucumber;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +19,13 @@ import cucumber.api.java.en.When;
 public class StepDefs {
 	private TestRestTemplate restTemplate = new TestRestTemplate();
 	private ResponseEntity<String> response;
+	@LocalServerPort
+	private int port;
 
 	@When("^the client calls /version$")
 	public void the_client_issues_GET_version() throws Throwable {
-		response = restTemplate.exchange("http://localhost:8080/version", HttpMethod.GET, null, String.class);
+		String url = "http://localhost:" + port + "/version";
+		response = restTemplate.getForEntity(url, String.class);
 	}
 
 	@Then("^the client receives status code of (\\d+)$")
