@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class User {
@@ -15,6 +16,28 @@ public class User {
 	private String username;
 	private String password;
 	private String email;
+
+	@ManyToOne
+	private Role role;
+
+	public User() {
+	}
+
+	public User(User u) {
+		this.id = u.id;
+		this.username = u.username;
+		this.password = u.password;
+		this.email = u.email;
+		this.role = u.role;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
 
 	public long getId() {
 		return id;
